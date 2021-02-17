@@ -1,14 +1,7 @@
 import React from "react";
 import { SafeAreaView, Text, View, FlatList } from "react-native";
 
-const getData = async () => [
-  {
-    text: "hello",
-  },
-  {
-    text: "goodbye",
-  },
-];
+import { getData } from "./api";
 
 export default function App() {
   const [data, setData] = React.useState([]);
@@ -27,15 +20,20 @@ export default function App() {
 
   return (
     <SafeAreaView>
-      <FlatList
-        data={data}
-        keyExtractor={(item) => item.text}
-        renderItem={({ item }) => (
-          <View>
-            <Text>{item.text}</Text>
-          </View>
-        )}
-      />
+      {data.length === 0 ? (
+        <Text>Loading...</Text>
+      ) : (
+        <FlatList
+          testID="FlatList"
+          data={data}
+          keyExtractor={(item) => item.text}
+          renderItem={({ item }) => (
+            <View>
+              <Text>{item.text}</Text>
+            </View>
+          )}
+        />
+      )}
     </SafeAreaView>
   );
 }
